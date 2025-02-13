@@ -12,8 +12,6 @@ export async function POST(req) {
     );
   }
 
-  // Create new Svix instance with secret
-  const wh = new Webhook(SIGNING_SECRET);
 
   // Get headers
   const headerPayload = await headers();
@@ -31,6 +29,9 @@ export async function POST(req) {
   // Get body
   const payload = await req.json();
   const body = JSON.stringify(payload);
+
+  // Create a new Svix instance with your secret.
+  const wh = new Webhook(SIGNING_SECRET);
 
   let evt;
 
@@ -55,7 +56,7 @@ export async function POST(req) {
   console.log(`Received webhook with ID ${id} and event type of ${eventType}`);
   console.log("Webhook payload:", body);
 
-  if (eventType === "user.created" || eventType === "user.updated") {
+  if (eventType === 'user.created' || eventType === 'user.updated') {
     const { id, first_name, last_name, image_url, email_addresses, username } =
       evt?.data;
 
@@ -68,7 +69,7 @@ export async function POST(req) {
         email_addresses,
         username
       );
-      if (user && eventType === "user.created") {
+      if (user && eventType === 'user.created') {
         try {
           await clerkClient.users.updateUserMetadata(id, {
             publicMetadata: {
@@ -85,7 +86,7 @@ export async function POST(req) {
       return new Response("Error occured", { status: 400 });
     }
   }
-  if (eventType === "user.deleted") {
+  if (eventType === 'user.deleted') {
     const { id } = evt?.data;
     try {
       await deleteUser(id);
@@ -94,5 +95,5 @@ export async function POST(req) {
       return new Response("Error occured", { status: 400 });
     }
   }
-  return new Response("Webhook received", { status: 200 });
+  return new Response("", { status: 200 });
 }
