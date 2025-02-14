@@ -59,7 +59,6 @@ export async function POST(req) {
   if (eventType === 'user.created' || eventType === 'user.updated') {
     const { id, first_name, last_name, image_url, email_addresses, username } =
       evt?.data;
-
     try {
       const user = await createOrUpdateUser(
         id,
@@ -78,22 +77,28 @@ export async function POST(req) {
             },
           });
         } catch (error) {
-          console.log("Error updating user metadata", error);
+          console.log('Error updating user metadata:', error);
         }
       }
     } catch (error) {
-      console.log("Error creating or updating user", error);
-      return new Response("Error occured", { status: 400 });
+      console.log('Error creating or updating user:', error);
+      return new Response('Error occured', {
+        status: 400,
+      });
     }
   }
+
   if (eventType === 'user.deleted') {
     const { id } = evt?.data;
     try {
       await deleteUser(id);
     } catch (error) {
-      console.log("Error deleting user", error);
-      return new Response("Error occured", { status: 400 });
+      console.log('Error deleting user:', error);
+      return new Response('Error occured', {
+        status: 400,
+      });
     }
   }
-  return new Response("", { status: 200 });
+
+  return new Response('', { status: 200 });
 }
