@@ -15,9 +15,11 @@ bun dev
 ```
 ## Sobre el desarrollo del blog
 
-Nuestro backend está impulsado por MongoDB, una base de datos NoSQL, y usamos Mongoose para el elegante modelado de objetos MongoDB en Node.js.
+El backend está impulsado por MongoDB, una base de datos NoSQL, y usamos Mongoose para el elegante modelado de objetos MongoDB en Node.js.
 
-Hemos integrado Clerk para una autenticación de usuario sin inconvenientes, lo que brinda una experiencia de inicio de sesión segura y fácil de usar. 
+Se utilizò Clerk para una autenticación de usuario sin inconvenientes, lo que brinda una experiencia de inicio de sesión segura y fácil de usar.
+
+La aplicacion esta deployada en Vercel: https://next-blog-gnj4msghd-jndevs-projects.vercel.app/
 
 Para obtener más información, consulte la documentación oficial de las tecnologías utilizadas:
 
